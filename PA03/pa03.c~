@@ -1,0 +1,12 @@
+int main(int argc, char ** argv)
+{
+  printf("Welcome to PA03!\n");
+  char * buff;
+  buff = (char *)malloc(50 * sizeof(char));
+  printf("Length of buffer: %d\n",sizeof(buff/sizeof(char)));
+ 
+
+
+  free(buff)
+  return EXIT_SUCCESS;
+}
