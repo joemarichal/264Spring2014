@@ -1,6 +1,7 @@
  #include "answer03.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 
 /**
@@ -77,22 +78,19 @@ char * * explode(const char * str, const char * delims, int * arrLen)
 
   int arrInd = 0;
   int last = 0;
-  char * word;
   for(i = 0; i < *arrLen; i++)
     {
-      if(strchr(delims,str[i]) || i == (*arrLen - 1))
+      if(strchr(delims,str[i]))
 	{
-	  word = malloc(sizeof(char) * *arrLen);
-	  memcpy(word, &str[last], (i - last + 1) * sizeof(char));
-	  printf("%s\n",word);
-	  strArr[arrInd] = word;
-	  arrInd++;
+	  strArr[arrInd] = malloc((i - last) * sizeof(char));
+	  memcpy(strArr[arrInd], &str[last], (i - last) * sizeof(char));
+ 	  arrInd++;
 	  last = i + 1;
- 
-	  free(word);
-	}
+ 	}
     }
-  
+  strArr[arrInd] = malloc((i - last) * sizeof(char));
+  memcpy(strArr[arrInd], &str[last], (i - last) * sizeof(char));
+  printf("strArr[1] = %s\n", strArr[1]);
   return strArr;
 }
 
@@ -110,7 +108,15 @@ char * * explode(const char * str, const char * delims, int * arrLen)
  */
 char * implode(char * * strArr, int len, const char * glue)
 {
-  return *strArr;
+  int i;
+  char * str= "";
+  int length = 0;
+  for(i = 0; i < len;i++)
+    {
+      str = strcat_ex(&str, &length, strArr[i]);
+      str = strcat_ex(&str, &length, glue);
+    }
+  return str;
 }
 
 /**
@@ -128,6 +134,7 @@ char * implode(char * * strArr, int len, const char * glue)
  */
 void sortStringArray(char * * arrString, int len)
 {
+  qsort(arrString,len,sizeof(char *),compare)
   return;
 }
 
@@ -160,6 +167,12 @@ void sortStringCharacters(char * str)
  */
 void destroyStringArray(char * * strArr, int len)
 {
+  int i;
+  for(i = 0; i < len; i++)
+    {
+      free(strArr[i]);
+    }
+  free(strArr);
   return;
 }
 
