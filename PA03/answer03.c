@@ -2,8 +2,8 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-
+int compare(const void * a, const void * b);
+int comparechar(const void * a, const void * b);
 /**
  * Append the C-string 'src' to the end of the C-string '*dest'.
  *
@@ -36,11 +36,12 @@ char * strcat_ex(char * * dest, int * n, const char * src)
       *n = (1 + 2 * (strlen(*dest) + strlen(src)));
       strcpy(buff,*dest);
       dest = &buff;
+      free(buff);
     }
  
   printf("Running strcat_ex\n");
   strcat(*dest,src);
-
+ 
   return *dest;
 }
 
@@ -90,7 +91,6 @@ char * * explode(const char * str, const char * delims, int * arrLen)
     }
   strArr[arrInd] = malloc((i - last) * sizeof(char));
   memcpy(strArr[arrInd], &str[last], (i - last) * sizeof(char));
-  printf("strArr[1] = %s\n", strArr[1]);
   return strArr;
 }
 
@@ -134,8 +134,13 @@ char * implode(char * * strArr, int len, const char * glue)
  */
 void sortStringArray(char * * arrString, int len)
 {
-  qsort(arrString,len,sizeof(char *),compare)
+  qsort(arrString, len, sizeof(char *), compare);
   return;
+}
+
+int compare(const void * a, const void * b)
+{
+  return(strcmp(*(char **) a, *(char **) b));
 }
 
 /**
@@ -151,9 +156,14 @@ void sortStringArray(char * * arrString, int len)
  */
 void sortStringCharacters(char * str)
 {
+  qsort(str, strlen(str), sizeof(char), comparechar);
   return;
 }
 
+int comparechar(const void * a, const void * b)
+{
+  return(*(char*)a-*(char*)b);
+}
 /**
  * Safely frees all memory associated with strArr, and then strArr itself.
  * Passing NULL as the first parameter has no effect.
