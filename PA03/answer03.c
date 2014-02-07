@@ -64,7 +64,36 @@ char * strcat_ex(char * * dest, int * n, const char * src)
  */
 char * * explode(const char * str, const char * delims, int * arrLen)
 {
-  return NULL;
+  int i;
+  int n = 1;
+  for(i = 0; i < *arrLen; i++)
+    {
+      if(strchr(delims,str[i]))
+	{
+	  n++;
+	}
+    }
+  char * * strArr = malloc(n * sizeof(char *));
+
+  int arrInd = 0;
+  int last = 0;
+  char * word;
+  for(i = 0; i < *arrLen; i++)
+    {
+      if(strchr(delims,str[i]) || i == (*arrLen - 1))
+	{
+	  word = malloc(sizeof(char) * *arrLen);
+	  memcpy(word, &str[last], (i - last + 1) * sizeof(char));
+	  printf("%s\n",word);
+	  strArr[arrInd] = word;
+	  arrInd++;
+	  last = i + 1;
+ 
+	  free(word);
+	}
+    }
+  
+  return strArr;
 }
 
 /**

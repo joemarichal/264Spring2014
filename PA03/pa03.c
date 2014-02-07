@@ -15,12 +15,15 @@ int main(int argc, char ** argv)
 
   //Testing strcat_ex
   printf("buff = %s\n\n\n", strcat_ex(&buff, &size,er));
-
-
+  int length;
+  const char * hi = "What in the Fuck?";
+  length = strlen(hi);
+  char * * strArr = explode(hi,"tu " ,&length);
 
 
   printf("Freeing Memory...\n");
   free(buff);
+  free(strArr);
   printf("Memory Free!\n");
   return 0;
 }
