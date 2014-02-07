@@ -29,19 +29,26 @@ int comparechar(const void * a, const void * b);
  */
 char * strcat_ex(char * * dest, int * n, const char * src)
 {
-  if(*dest == NULL || (strlen(*dest)+strlen(src) > *n))
+  // if(*dest == NULL || (strlen(*dest)+strlen(src) > *n))
+  size_t src_len = strlen(src);
+  size_t dest_len = *dest == NULL ? 0 : strlen(*dest);
+  if(*dest == NULL || (src_len + dest_len + 1) >= *n) 
     {
       char * buff;
-      buff = (char *)malloc(1 + 2 * (strlen(*dest) + strlen(src)));
-      *n = (1 + 2 * (strlen(*dest) + strlen(src)));
-      strcpy(buff,*dest);
-      dest = &buff;
-      free(buff);
+      *n = 1 + 2 * (src_len + dest_len);
+      buff = malloc(*n * sizeof(char));
+      *buff = '\0';
+      if (!(*dest == NULL))
+	  {
+	    strcpy(buff, *dest);
+	  }
+      free(*dest);
+      *dest = buff;
     }
  
-  printf("Running strcat_ex\n");
+  
   strcat(*dest,src);
- 
+  
   return *dest;
 }
 
@@ -66,72 +73,69 @@ char * strcat_ex(char * * dest, int * n, const char * src)
  */
 char * * explode(const char * str, const char * delims, int * arrLen)
 {
-  int i;
-  int n = 1;
-  for(i = 0; i < *arrLen; i++)
+ 
+  //Calculate Number of strings
+  *arrLen = 1;
+  const char * pos = str;
+  while(*pos != '\0')
     {
-      if(strchr(delims,str[i]))
+      if(strchr(delims,*pos))
 	{
-	  n++;
+	  *arrLen = *arrLen + 1;
 	}
+      pos++;
     }
-  char * * strArr = malloc(n * sizeof(char *));
 
+
+  //Allocate Memory
+  char * * strArr = malloc(*arrLen * sizeof(char *));
+
+
+  //Insert Strings
   int arrInd = 0;
-  int last = 0;
-  for(i = 0; i < *arrLen; i++)
+  const char * start = str;
+  pos = str;
+
+  while(*pos != '\0')
     {
-      if(strchr(delims,str[i]))
+      if(strchr(delims,*pos))
 	{
-	  strArr[arrInd] = malloc((i - last) * sizeof(char));
-	  memcpy(strArr[arrInd], &str[last], (i - last) * sizeof(char));
- 	  arrInd++;
-	  last = i + 1;
- 	}
+	  int len = pos - start;
+	  strArr[arrInd] = malloc((len + 1) * sizeof(char));
+	  memcpy(strArr[arrInd], start, (len) * sizeof(char));
+	  strArr[arrInd][len] = '\0';
+	  arrInd++;
+	  start = pos + 1;
+	}
+      pos++;
     }
-  strArr[arrInd] = malloc((i - last) * sizeof(char));
-  memcpy(strArr[arrInd], &str[last], (i - last) * sizeof(char));
+
+  int len = pos - start;
+  strArr[arrInd] = malloc((len + 1) * sizeof(char));
+  memcpy(strArr[arrInd], start, (len) * sizeof(char));
+  strArr[arrInd][len] = '\0';
   return strArr;
 }
 
-/**
- * Takes an array of strings, and then concatenates them into a single string,
- * placing 'glue' between each.
- *
- * For example:
- * int len;
- * char * * strArr = explode("100 224 147 80", " ", &len);
- * char * str = implode(strArr, len, ", ");
- * printf("(%s)\n", str); // (100, 224, 147, 80)
- *
- * Hint: use strcat_ex in a for loop.
- */
+
 char * implode(char * * strArr, int len, const char * glue)
 {
   int i;
-  char * str= "";
+  char * str= malloc(1 * sizeof(char));
+  strcpy(str, "");
   int length = 0;
   for(i = 0; i < len;i++)
     {
       str = strcat_ex(&str, &length, strArr[i]);
-      str = strcat_ex(&str, &length, glue);
+      if((i+1) != len)
+	{
+	  str = strcat_ex(&str, &length, glue);
+	}
     }
   return str;
 }
 
-/**
- * Takes an array of C-strings, and sorts them alphabetically, ascending.
- *
- * For example, 
- * int len;
- * char * * strArr = explode("lady beatle brew", " ", &len);
- * sortStringArray(strArr, len);
- * char * str = implode(strArr, len, " ");
- * printf("%s\n"); // beatle brew lady
- *
- * Hint: use the <stdlib.h> function "qsort"
- * Hint: you must _clearly_ understand the typecasts.
- */
+
 void sortStringArray(char * * arrString, int len)
 {
   qsort(arrString, len, sizeof(char *), compare);
@@ -143,17 +147,8 @@ int compare(const void * a, const void * b)
   return(strcmp(*(char **) a, *(char **) b));
 }
 
-/**
- * Sorts the characters in a string.
- *
- * For example, 
- * char * s1 = strdup("How did it get so late so soon?");
- * sortStringCharacters(s1)
- * // s1 is now "       ?Haddeegiilnooooossstttw"
- *
- * Hint: use the <stdlib.h> function "qsort"
- * Hint: you must _clearly_  understand the typecasts.
- */
+
+
 void sortStringCharacters(char * str)
 {
   qsort(str, strlen(str), sizeof(char), comparechar);
@@ -164,17 +159,9 @@ int comparechar(const void * a, const void * b)
 {
   return(*(char*)a-*(char*)b);
 }
-/**
- * Safely frees all memory associated with strArr, and then strArr itself.
- * Passing NULL as the first parameter has no effect.
- *
- * int len;
- * const char * abe = "Give me six hours to chop down a tree and I will spend\n"
- *                    "the first four sharpening the axe.";
- * char * * strArr = explode(abe, "\n ");
- * destroyStringArray(strArr, len); // cleans memory -- no memory leaks
- * destroyStringArray(NULL, 0); // does nothing, does not crash.
- */
+
+
+
 void destroyStringArray(char * * strArr, int len)
 {
   int i;
