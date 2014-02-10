@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <string.h>
+
+
+int main(int argc, char ** argv)
+{
+  int i;
+  for(i = 0; i < argc; i++)
+    {
+      if(strcmp(argv[i],"--help"))
+	{
+	  printf("<Usage: cat-lite [--help] [FILE]...\n");
+	  printf("With no FILE, or when FILE is -, read standard input\n\n");
+	  printf("Examples:\n");
+	  printf("\tcat-lite README\tPrint the file README to standard output.\n");
+	  printf("\tcat-lite f - g\tPrint f's contents, then standard input,\n");
+	  printf("\t\t\t\t\t\tthen g's contents.\n");
+	  printf("\t cat-lite\t\t\tCopy standard input to standard output.\n");
+	  return EXIT_SUCCESS;
+	}
+    }
+
+  return EXIT_SUCCESS;
+}
