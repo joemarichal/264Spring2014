@@ -14,8 +14,10 @@ int main(int argc, char ** argv)
     {
       do{
 	c = fgetc(stdin);
+	if(c != EOF){
 	fputc(c, stdout);
-      }while(c != '\n');
+	}
+      }while(c != EOF);
       
     }
 
@@ -40,8 +42,10 @@ int main(int argc, char ** argv)
 	{
 	  do{
 	    c = fgetc(stdin);
+	    if(c != EOF){
 	    fputc(c, stdout);
-	  }while(c != '\n');
+	    }
+	  }while(c != EOF);
 	}
       else
 	{
