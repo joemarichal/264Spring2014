@@ -1,0 +1,84 @@
+==5010== Memcheck, a memory error detector
+==5010== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
+==5010== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
+==5010== Command: ./grep-lite hell
+==5010== Parent PID: 2648
+==5010== 
+--5010-- 
+--5010-- Valgrind options:
+--5010--    --suppressions=/usr/lib/valgrind/debian-libc6-dbg.supp
+--5010--    --tool=memcheck
+--5010--    --leak-check=full
+--5010--    --verbose
+--5010--    --log-file=memcheck.log
+--5010-- Contents of /proc/version:
+--5010--   Linux version 3.5.0-23-generic (buildd@komainu) (gcc version 4.6.3 (Ubuntu/Linaro 4.6.3-1ubuntu5) ) #35~precise1-Ubuntu SMP Fri Jan 25 17:13:26 UTC 2013
+--5010-- Arch and hwcaps: AMD64, amd64-sse3
+--5010-- Page sizes: currently 4096, max supported 4096
+--5010-- Valgrind library directory: /usr/lib/valgrind
+--5010-- Reading syms from /home/joe/ece264/solutions/264Spring2014/PA04/grep-lite (0x400000)
+--5010-- Reading syms from /lib/x86_64-linux-gnu/ld-2.15.so (0x4000000)
+--5010--   Considering /lib/x86_64-linux-gnu/ld-2.15.so ..
+--5010--   .. CRC mismatch (computed 20469de9 wanted af909ff1)
+--5010--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.15.so ..
+--5010--   .. CRC is valid
+--5010-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux (0x38000000)
+--5010--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--5010--   .. CRC mismatch (computed fd32bc40 wanted 1b1bde8c)
+--5010--    object doesn't have a symbol table
+--5010--    object doesn't have a dynamic symbol table
+--5010-- Reading suppressions file: /usr/lib/valgrind/debian-libc6-dbg.supp
+--5010-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==5010== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-5010-by-joe-on-???
+==5010== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-5010-by-joe-on-???
+==5010== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-5010-by-joe-on-???
+==5010== 
+==5010== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==5010== don't want to do, unless you know exactly what you're doing,
+==5010== or are doing some strange experiment):
+==5010==   /usr/lib/valgrind/../../bin/vgdb --pid=5010 ...command...
+==5010== 
+==5010== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==5010==   /path/to/gdb ./grep-lite
+==5010== and then give GDB the following command
+==5010==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=5010
+==5010== --pid is optional if only one valgrind process is running
+==5010== 
+--5010-- REDIR: 0x40189f0 (strlen) redirected to 0x380625c7 (???)
+--5010-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so (0x4a25000)
+--5010--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--5010--   .. CRC mismatch (computed 8f05ac98 wanted c6d0ab1a)
+--5010--    object doesn't have a symbol table
+--5010-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so (0x4c27000)
+--5010--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--5010--   .. CRC mismatch (computed fc059af4 wanted ffc668e8)
+--5010--    object doesn't have a symbol table
+--5010-- REDIR: 0x4018860 (index) redirected to 0x4c2bc60 (index)
+--5010-- REDIR: 0x40188e0 (strcmp) redirected to 0x4c2cc20 (strcmp)
+--5010-- Reading syms from /lib/x86_64-linux-gnu/libc-2.15.so (0x4e32000)
+--5010--   Considering /lib/x86_64-linux-gnu/libc-2.15.so ..
+--5010--   .. CRC mismatch (computed 2e9c874c wanted 728bfc8e)
+--5010--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.15.so ..
+--5010--   .. CRC is valid
+--5010-- REDIR: 0x4ebee40 (strcasecmp) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--5010-- REDIR: 0x4ebb1e0 (strnlen) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--5010-- REDIR: 0x4ec1110 (strncasecmp) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--5010-- REDIR: 0x4ebcbd0 (__GI_strrchr) redirected to 0x4c2ba80 (__GI_strrchr)
+--5010-- REDIR: 0x4eb4f20 (malloc) redirected to 0x4c2b660 (malloc)
+--5010-- REDIR: 0x4ebd2b0 (memchr) redirected to 0x4c2cce0 (memchr)
+--5010-- REDIR: 0x4ed2830 (strstr) redirected to 0x4a25610 (_vgnU_ifunc_wrapper)
+--5010-- REDIR: 0x4ed24c0 (__GI_strstr) redirected to 0x4c2e7a0 (strstr)
+--5010-- REDIR: 0x4ebb100 (__GI_strlen) redirected to 0x4c2bfc0 (__GI_strlen)
+--5010-- REDIR: 0x4eb5530 (free) redirected to 0x4c2a7c0 (free)
+==5010== 
+==5010== HEAP SUMMARY:
+==5010==     in use at exit: 0 bytes in 0 blocks
+==5010==   total heap usage: 1 allocs, 1 frees, 2,000 bytes allocated
+==5010== 
+==5010== All heap blocks were freed -- no leaks are possible
+==5010== 
+==5010== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)
+--5010-- 
+--5010-- used_suppression:      2 dl-hack3-cond-1
+==5010== 
+==5010== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 2 from 2)

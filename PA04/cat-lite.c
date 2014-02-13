@@ -25,13 +25,13 @@ int main(int argc, char ** argv)
     {
       if(!strcmp(argv[i],"--help"))
 	{
-	  printf("<Usage: cat-lite [--help] [FILE]...\n");
-	  printf("With no FILE, or when FILE is -, read standard input\n\n");
-	  printf("Examples:\n");
-	  printf("   cat-lite README   Print the file README to standard output.\n");
-	  printf("   cat-lite f - g    Print f's contents, then standard input,\n");
-	  printf("                     then g's contents.\n");
-	  printf("   cat-lite          Copy standard input to standard output.\n");
+	  fprintf(stdout,"Usage: cat-lite [--help] [FILE]...\n");
+	  fprintf(stdout,"With no FILE, or when FILE is -, read standard input.\n\n");
+	  fprintf(stdout,"Examples:\n");
+	  fprintf(stdout,"  cat-lite README   Print the file README to standard output.\n");
+	  fprintf(stdout,"  cat-lite f - g    Print f's contents, then standard input,\n");
+	  fprintf(stdout,"                    then g's contents.\n");
+	  fprintf(stdout,"  cat-lite          Copy standard input to standard output.\n\n");
 	  return EXIT_SUCCESS;
 	}
     }
