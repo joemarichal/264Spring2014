@@ -64,13 +64,15 @@ if(im == NULL) {
     */
       printf("Testing Image_load\n\n");
       im = Image_load(in_filename);
-      printf("%s%d%d\n", im->comment, im->height,im->width);
-      linearNormalization(im->width, im->height, im->data);
-      
-      Image_save(out_filename, im);
+      printf("Image Loaded\n");
+      // printf("Comment: %s Height: %d Width: %d\n", im->comment, im->height,im->width);
+      //linearNormalization(im->width, im->height, im->data);      
+      if(im  != NULL)
+	{
+          // Image_save(out_filename, im);
 
-      Image_free(im); // a memory leak until you write this function
-
+          // Image_free(im); // a memory leak until you write this function
+	}
       return ret;
 }
 

@@ -10,21 +10,29 @@ Image * Image_load(const char * filename)
   FILE * fp = fopen(filename, "r");
   ImageHeader header;
   int read;
+  Image * im = NULL;
+  Image * imNull = NULL;
   //Check if file is valid
   if(fp == NULL)
     {
-      return NULL;
+      return im;
     }
 
   //Check for Validity of Magic Number
-  fread(&header,sizeof(ImageHeader),1,fp);
+  read = fread(&header,sizeof(ImageHeader),1,fp);
+
+  if(read == 0)
+    {
+      fclose(fp);
+      return im;
+    }
  
   
 
   if(header.magic_number != ECE264_IMAGE_MAGIC_NUMBER)
     {
       fclose(fp);
-      return NULL;
+      return im;
     }
 
 
@@ -34,7 +42,6 @@ Image * Image_load(const char * filename)
   if(header.width == 0 || header.height == 0)
   {
     fclose(fp);
-    Image * im = NULL;
     return im;
   }
  
@@ -44,67 +51,79 @@ Image * Image_load(const char * filename)
   if(header.comment_len == 0)
     {
       fclose(fp);
-      return NULL;
+      return im;
     }
 
   //Read Comment and Check
  
   char * comment = malloc(header.comment_len * sizeof(char));
+  if(comment == NULL)
+    {
+      fclose(fp);
+      return im;
+    }
+
   fread(comment, header.comment_len, 1, fp);
   if(comment[header.comment_len - 1] != '\0')
     {
       fclose(fp);
       free(comment);
-      return NULL;
+      return im;
     }
 
  
  //Read Image
   size_t num_bytes;
   num_bytes = sizeof(uint8_t) * header.width * header.height;
-  Image * im = malloc(sizeof(Image));
+  im = malloc(sizeof(Image));
   im->height=header.height;
   im->width=header.width;
   im->comment = malloc(sizeof(char) * (strlen(comment) + 1));
   strcpy(im->comment,comment);
   im->data = malloc(num_bytes);
 
-  uint8_t * raw = malloc(num_bytes);
+  if(im->data == NULL)
+    {
+      free(im->comment);
+      free(im);
+      free(comment);
+      fclose(fp);
+      return imNull;
+    }
+ 
 
-  read = fread(raw, sizeof(uint8_t), num_bytes,fp);
+  read = fread(im->data, sizeof(uint8_t), num_bytes,fp);
  
  if(read != num_bytes)
     {
-      free(raw);
       free(im->data);
       free(im->comment);
       free(im);
       free(comment);
       fclose(fp);
-      return im;
+      return imNull;
     }
 
  
   uint8_t byte;
  
   
-  read = fread(&byte, sizeof(uint8_t), 10, fp);
-  printf("%d\n", read);
-  /*
-  if(read != 1)
+  read = fread(&byte, sizeof(uint8_t), 1, fp);
+ 
+
+  if(read != 0)
     {
-      free(raw);
       free(im->data);
       free(im->comment);
       free(im);
       free(comment);
       fclose(fp);
-      return im;
+      return imNull;
     }
-  */
-  im->data = raw;
+
+
+  free(comment);
   fclose(fp);
-  printf("Return Normal\n");
   return im;
 }
 
@@ -158,22 +177,12 @@ int Image_save(const char * filename, Image * image)
   header.comment_len = strlen(image->comment) + 1;
 
   fwrite(&header, sizeof(ImageHeader),1,fp);
-  fprintf(fp,"%s",image->comment);
-  int col;
-  int row;
-  int i = 0;
+  fprintf(fp,"%s%c",image->comment,'\0');
+  int i;
 
-
-  for(row = 0; row < image->height; row++)
+  for(i = 0; i < image->width * image->height; i++)
     {
-      uint8_t * write_ptr = malloc(image->width * sizeof(uint8_t));
-      for(col = 0; col < image->width; col++)
-	{
-	  write_ptr[col] = image->data[i];
-	  i++;
-	}
-      fwrite(write_ptr,sizeof(uint8_t),image->width * sizeof(uintt_t), fp);
-      free(write_ptr);
+      fprintf(fp,"%c",image->data[i]);
     }
 
   fclose(fp);

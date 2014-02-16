@@ -11,6 +11,7 @@ Image * Image_load(const char * filename)
   ImageHeader header;
   int read;
   Image * im = NULL;
+  Image * imNull = NULL;
   //Check if file is valid
   if(fp == NULL)
     {
@@ -18,7 +19,13 @@ Image * Image_load(const char * filename)
     }
 
   //Check for Validity of Magic Number
-  fread(&header,sizeof(ImageHeader),1,fp);
+  read = fread(&header,sizeof(ImageHeader),1,fp);
+
+  if(read == 0)
+    {
+      fclose(fp);
+      return im;
+    }
  
   
 
@@ -50,6 +57,12 @@ Image * Image_load(const char * filename)
   //Read Comment and Check
  
   char * comment = malloc(header.comment_len * sizeof(char));
+  if(comment == NULL)
+    {
+      fclose(fp);
+      return im;
+    }
+
   fread(comment, header.comment_len, 1, fp);
   if(comment[header.comment_len - 1] != '\0')
     {
@@ -69,38 +82,46 @@ Image * Image_load(const char * filename)
   strcpy(im->comment,comment);
   im->data = malloc(num_bytes);
 
+  if(im->data == NULL)
+    {
+      free(im->comment);
+      free(im);
+      free(comment);
+      fclose(fp);
+      return imNull;
+    }
  
 
   read = fread(im->data, sizeof(uint8_t), num_bytes,fp);
  
  if(read != num_bytes)
     {
-      
+      printf("Wrong number of bytes\n");
       free(im->data);
       free(im->comment);
       free(im);
       free(comment);
       fclose(fp);
-      im = NULL;
-      return im;
+      return imNull;
     }
 
  
   uint8_t byte;
  
   
-  read = fread(&byte, sizeof(uint8_t), 10, fp);
+  read = fread(&byte, sizeof(uint8_t), 1, fp);
  
 
   if(read != 0)
     {
+      printf("Didn't Read to end of file\n");
       free(im->data);
       free(im->comment);
       free(im);
       free(comment);
       fclose(fp);
-      im = NULL;
-      return im;
+      printf("Return null\n");
+      return imNull;
     }
 
 
