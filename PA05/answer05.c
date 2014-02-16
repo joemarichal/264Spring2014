@@ -10,10 +10,11 @@ Image * Image_load(const char * filename)
   FILE * fp = fopen(filename, "r");
   ImageHeader header;
   int read;
+  Image * im = NULL;
   //Check if file is valid
   if(fp == NULL)
     {
-      return NULL;
+      return im;
     }
 
   //Check for Validity of Magic Number
@@ -24,7 +25,7 @@ Image * Image_load(const char * filename)
   if(header.magic_number != ECE264_IMAGE_MAGIC_NUMBER)
     {
       fclose(fp);
-      return NULL;
+      return im;
     }
 
 
@@ -34,7 +35,6 @@ Image * Image_load(const char * filename)
   if(header.width == 0 || header.height == 0)
   {
     fclose(fp);
-    Image * im = NULL;
     return im;
   }
  
@@ -44,7 +44,7 @@ Image * Image_load(const char * filename)
   if(header.comment_len == 0)
     {
       fclose(fp);
-      return NULL;
+      return im;
     }
 
   //Read Comment and Check
@@ -55,32 +55,33 @@ Image * Image_load(const char * filename)
     {
       fclose(fp);
       free(comment);
-      return NULL;
+      return im;
     }
 
  
  //Read Image
   size_t num_bytes;
   num_bytes = sizeof(uint8_t) * header.width * header.height;
-  Image * im = malloc(sizeof(Image));
+  im = malloc(sizeof(Image));
   im->height=header.height;
   im->width=header.width;
   im->comment = malloc(sizeof(char) * (strlen(comment) + 1));
   strcpy(im->comment,comment);
   im->data = malloc(num_bytes);
 
-  uint8_t * raw = malloc(num_bytes);
+ 
 
-  read = fread(raw, sizeof(uint8_t), num_bytes,fp);
+  read = fread(im->data, sizeof(uint8_t), num_bytes,fp);
  
  if(read != num_bytes)
     {
-      free(raw);
+      
       free(im->data);
       free(im->comment);
       free(im);
       free(comment);
       fclose(fp);
+      im = NULL;
       return im;
     }
 
@@ -93,17 +94,17 @@ Image * Image_load(const char * filename)
 
   if(read != 0)
     {
-      free(raw);
       free(im->data);
       free(im->comment);
       free(im);
       free(comment);
       fclose(fp);
+      im = NULL;
       return im;
     }
 
 
-  im->data = raw;
+  free(comment);
   fclose(fp);
   return im;
 }
