@@ -30,7 +30,7 @@ void print_usage(char * argv0)
 int main(int argc, char * * argv)
 {
     int ret = EXIT_SUCCESS; // unless otherwise noted
-   
+
     // Parse input arguments
     if(argc != 3) {
 	print_usage(argv[0]);
@@ -38,42 +38,31 @@ int main(int argc, char * * argv)
 	    return EXIT_SUCCESS;
 	return EXIT_FAILURE;
     }
+
     const char * in_filename = argv[1];
     const char * out_filename = argv[2];
-    
+
     // Read the file
-    Image * im; // = Image_loadbmp(in_filename);
-    /*    
-if(im == NULL) {
-    	fprintf(stderr, "Error: failed to read '%s'\n", in_filename);
-    	return EXIT_FAILURE;
-     }
+    Image * im = Image_loadbmp(in_filename);
+    if(im == NULL) {
+	fprintf(stderr, "Error: failed to read '%s'\n", in_filename);
+	return EXIT_FAILURE;
+    }
 
     // Invert pixel intensity
-     int n_pixels = im->width * im->height;
-     int ind;
-     for(ind = 0; ind < n_pixels; ++ind)
+    int n_pixels = im->width * im->height;
+    int ind;
+    for(ind = 0; ind < n_pixels; ++ind)
 	im->data[ind] = 255 - im->data[ind];
 
-     // Write out a new file
-      if(!Image_savebmp(out_filename, im)) {
+    // Write out a new file
+    if(!Image_savebmp(out_filename, im)) {
 	fprintf(stderr, "Error attempting to write '%s'\n", out_filename);
 	ret = EXIT_FAILURE;
     }
 
-    */
-      printf("Testing Image_load\n\n");
-      im = Image_load(in_filename);
-      printf("Image Loaded\n");
-      // printf("Comment: %s Height: %d Width: %d\n", im->comment, im->height,im->width);
-      //linearNormalization(im->width, im->height, im->data);      
-      if(im  != NULL)
-	{
-          // Image_save(out_filename, im);
+    Image_free(im); // a memory leak until you write this function
 
-          // Image_free(im); // a memory leak until you write this function
-	}
-      return ret;
+    return ret;
 }
-
 

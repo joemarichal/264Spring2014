@@ -96,7 +96,6 @@ Image * Image_load(const char * filename)
  
  if(read != num_bytes)
     {
-      printf("Wrong number of bytes\n");
       free(im->data);
       free(im->comment);
       free(im);
@@ -114,13 +113,11 @@ Image * Image_load(const char * filename)
 
   if(read != 0)
     {
-      printf("Didn't Read to end of file\n");
       free(im->data);
       free(im->comment);
       free(im);
       free(comment);
       fclose(fp);
-      printf("Return null\n");
       return imNull;
     }
 
