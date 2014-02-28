@@ -1,0 +1,114 @@
+commit 52c1fcda2e509bb819f624177725e7c24af9e9a5
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Mon Feb 17 18:52:54 2014 -0500
+
+    Passed Each testcase
+
+commit 6e04db83b36c3660032f4139bf9ce42d4c144126
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Mon Feb 17 18:51:05 2014 -0500
+
+    First draft each function
+
+commit 2d695c7319c4ac6596985851dacd78bddcaa83f6
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Sun Feb 16 14:02:50 2014 -0500
+
+    All testcases passed
+
+commit 9d459fcf6a7b313411ba6a87b90db221f7062f55
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Sun Feb 16 13:06:55 2014 -0500
+
+    Fixed major memory error
+
+commit 263f0df8d2a118e72b13429a7f5e968f1c670614
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Sun Feb 16 11:41:37 2014 -0500
+
+    First Draft of PA05
+
+commit 5599f6fc8f0a5da3a262504dcbec1e797ae48d61
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Thu Feb 13 12:17:56 2014 -0500
+
+    Final version
+
+commit 9a813c2e47be78768d30bd0934c4b23b2c681c46
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Sun Feb 9 21:02:29 2014 -0500
+
+    Error checking working
+
+commit a789e059d8ff2c548540647c8a40e443bf139374
+Merge: 2bf135d 13b3861
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Sun Feb 9 20:40:36 2014 -0500
+
+    Merge branch 'master' of https://github.com/joemarichal/264Spring2014
+
+commit 2bf135d47ce3c3294b72954effdece82c5473de3
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Sun Feb 9 20:34:10 2014 -0500
+
+    First draft of each function
+
+commit ef62db15e8a0f7489e9a77a3d425cde88fd58df3
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Sun Feb 9 20:32:09 2014 -0500
+
+    fixed issue with stdin
+
+commit d12b9066b6c3cf36aaa85c654a496d53f542faeb
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Sun Feb 9 20:04:05 2014 -0500
+
+    cat looks good
+
+commit b499ac3b5f04b67ae33ee0df3e8911869468767e
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Sun Feb 9 20:03:23 2014 -0500
+
+    echo looks good
+
+commit 13b38611758712bb5531fc16058849157a44c9fc
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Fri Feb 7 10:06:16 2014 -0500
+
+    Fixed memory errors
+
+commit 3222b1f4fa17922677a78caa195ad709818767a7
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Thu Feb 6 22:56:33 2014 -0500
+
+    All functions seem to work
+
+commit 9e18fb349e287b9c9abcf3d5a31013c3d803a92a
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Thu Feb 6 22:19:05 2014 -0500
+
+    First draft of implode and destroy
+
+commit 2fca2f669f205731f1be289733940e31bd95572c
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Thu Feb 6 21:30:26 2014 -0500
+
+    Function two seems to be working
+
+commit ae98b64674fc118b5c81bd7ddddde6ecc68c2274
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Thu Feb 6 18:06:32 2014 -0500
+
+    Initial Documents and first attempt at first function
+
+commit 0ad00ccf33a0febff130bea0c707435b0c66a491
+Author: Joe <joe@joe-VirtualBox.(none)>
+Date:   Thu Feb 6 18:00:37 2014 -0500
+
+    First function for pa03
+
+commit 7a5e34d0e1d7f135c3c32290680c417723d7d9ae
+Author: joemarichal <jmaricha@purdue.edu>
+Date:   Mon Jan 13 07:50:24 2014 -0800
+
+    Initial commit

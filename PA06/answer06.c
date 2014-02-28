@@ -30,7 +30,7 @@ int prime(int value)
 
 void partitionPrime(int value)
 {
-  int * partition = malloc(MAXLENGTH * sizeof(int));
+  int * partition = malloc(100 * sizeof(int));
 
   partPrime(value, 2, partition, 0);
 
@@ -63,7 +63,7 @@ void partPrime(int value, int n, int * partition, int count)
 
 void partitionOddAndEven(int value)
 {
-  int * partition = malloc(MAXLENGTH * sizeof(int));
+  int * partition = malloc(100 * sizeof(int));
 
   partEO(value, 1, partition, 0);
   partEO(value, 2, partition, 0);
@@ -102,7 +102,7 @@ void partEO(int value, int n, int * partition, int count)
 
 void partitionOdd(int value)
 {
-  int * partition = malloc(MAXLENGTH * sizeof(int));
+  int * partition = malloc(100 * sizeof(int));
 
   partodd(value, 1, partition, 0);
 
@@ -135,7 +135,7 @@ void partodd(int value, int n, int * partition, int count)
 
 void partitionEven(int value)
 {
-  int * partition = malloc(MAXLENGTH * sizeof(int));
+  int * partition = malloc(100 * sizeof(int));
   if(value % 2 == 0)
     {
       parteven(value, 2, partition, 0);
@@ -147,7 +147,7 @@ void partitionEven(int value)
 
 void partitionAll(int value)
 {
-  int * partition = malloc(MAXLENGTH * sizeof(int));
+  int * partition = malloc(100 * sizeof(int));
  
   //Send to Recursive Partition Function
   partall(value,1,partition,0);
@@ -158,7 +158,7 @@ void partitionAll(int value)
 
 void partitionIncreasing(int value)
 {
-  int * partition = malloc(MAXLENGTH * sizeof(int));
+  int * partition = malloc(100 * sizeof(int));
   partinc(value, 1, partition, 0);
   free(partition);
   return;
@@ -166,7 +166,7 @@ void partitionIncreasing(int value)
 
 void partitionDecreasing(int value)
 {
-  int * partition = malloc(MAXLENGTH * sizeof(int));
+  int * partition = malloc(100 * sizeof(int));
 
   partdec(value, value, partition, 0);
 
